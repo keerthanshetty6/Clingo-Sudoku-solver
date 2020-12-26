@@ -1,0 +1,15 @@
+%%script  --no-raise-error clingo --enum-mode=brave -t4
+
+#const n=2.
+
+1{initial(X,Y,1..n*n)}1:-X=1..n**n,Y=1..n*n.
+:-not initial(X,_,N),X=1..n*n,N=1..n*n.
+:-not initial(_,Y,N),Y=1..n*n,N=1..n*n.
+    
+initial(X,Y,(((X-1)/n)*n + (Y-1)/n),N):-initial(X,Y,N).
+:-not initial(_,_,S,N), S=0..n*n-1,N=1..n*n.
+    
+
+sudoku(I,J,K):-initial(I,J,K).
+
+#show sudoku/3.
